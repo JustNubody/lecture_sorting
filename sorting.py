@@ -14,19 +14,19 @@ def read_data(file_name):
     file_name = "numbers.csv"
 
     with open(file_name) as f:
-        series_1 = []
-        series_2 = []
-        series_3 = []
-        # keys = f.readline()
         lines = f.readlines()
+        data = dict()
 
         for line_num, line in enumerate(lines):
-            if line_num > 0:
+            if line_num == 0:
+                col_names = line.split(',')
+                for col_name in col_names:
+                    data[col_name.strip()] = []
+            else:
                 values = line.split(",")
-                series_1.append(int(values[0]))
-                series_2.append(int(values[1]))
-                series_3.append(int(values[2]))
-        data = {'series_1': series_1, "series_2": series_2, 'series_3': series_3}
+                for ind, col_name in enumerate(col_names):
+                    data[col_name.strip()].append(int(values[ind]))
+
     print(data)
 
 
